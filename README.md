@@ -1,5 +1,4 @@
-# ![alt text](icon.png "Moment Icon")
- Lab 1 - Moment
+# ![alt text](icon.png "Moment Icon") Lab 1 - Moment
 
 **Moment** is a photos app using the [Instagram API](https://www.instagram.com/developer/).
 
