@@ -18,6 +18,7 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Moment"
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -61,6 +62,7 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
         let picture = pictures![indexPath.section]
         let imageUrl = NSURL( string: picture.valueForKeyPath("images.standard_resolution.url") as! String)
         cell.pictureView.setImageWithURL(imageUrl!)
+        cell.selectionStyle = .None
         
         return cell;
     }
