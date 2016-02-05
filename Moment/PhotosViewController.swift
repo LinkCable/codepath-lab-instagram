@@ -14,9 +14,10 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     var pictures: [NSDictionary]?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -51,7 +52,20 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCell;
         
+        let picture = pictures![indexPath.section]
+        let imageUrl = NSURL( string: picture.valueForKeyPath("images.standard_resolution.url") as! String)
+        cell.pictureView.setImageWithURL(imageUrl!)
+        
+        return cell;
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if let pictures = pictures {
             return pictures.count
         } else {
@@ -59,17 +73,38 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCell;
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
         
-        let picture = pictures![indexPath.row]
-        let imageUrl = NSURL( string: picture.valueForKeyPath("images.standard_resolution.url") as! String)
-        print(imageUrl)
-        cell.pictureView.setImageWithURL(imageUrl!)
+        let profileView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 15;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).CGColor
+        profileView.layer.borderWidth = 1;
         
-        return cell;
+        // Use the section number to get the right URL
+        let profile = pictures![section]
+        let profilePictureUrl = NSURL(string: profile.valueForKeyPath("user.profile_picture") as! String)
+        profileView.setImageWithURL(profilePictureUrl!)
+        
+        headerView.addSubview(profileView)
+        
+        // Add a UILabel for the username here
+        let profileName = UILabel(frame: CGRect(x: 60, y: 10, width: 200, height: 30))
+        profileName.clipsToBounds = true
+        profileName.textColor = UIColor(red:33/255.0, green:146/255.0, blue:255/255.0, alpha: 1.0)
+        profileName.text = profile.valueForKeyPath("user.username") as? String
+        
+        headerView.addSubview(profileName)
+        
+        return headerView
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+
 
 }
 
