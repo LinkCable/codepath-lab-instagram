@@ -91,7 +91,7 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
         headerView.addSubview(profileView)
         
         // Add a UILabel for the username here
-        let profileName = UILabel(frame: CGRect(x: 60, y: 10, width: 200, height: 30))
+        let profileName = UILabel(frame: CGRect(x: 50, y: 10, width: 200, height: 30))
         profileName.clipsToBounds = true
         profileName.textColor = UIColor(red:33/255.0, green:146/255.0, blue:255/255.0, alpha: 1.0)
         profileName.text = profile.valueForKeyPath("user.username") as? String
