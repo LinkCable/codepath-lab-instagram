@@ -18,11 +18,11 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="338" id="a8r-ad-gwC" customClass="PhotoCell" customModule="Moment" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="338" id="a8r-ad-gwC" customClass="PhotoCell" customModule="Moment" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="338"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a8r-ad-gwC" id="rls-52-hIp">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="337.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="337.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="FcH-XT-vh1">
@@ -36,6 +36,7 @@
                                         <animations/>
                                         <connections>
                                             <outlet property="pictureView" destination="FcH-XT-vh1" id="hOq-9V-3av"/>
+                                            <segue destination="whw-wK-Cso" kind="push" id="kKX-0o-t3C"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -53,6 +54,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="694" y="368"/>
+        </scene>
+        <!--Photo Details View Controller-->
+        <scene sceneID="XPb-E3-gR4">
+            <objects>
+                <viewController id="whw-wK-Cso" customClass="PhotoDetailsViewController" customModule="Moment" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e4n-Ck-kVR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0y4-FV-SFz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ULu-WW-WOu"/>
+                    <connections>
+                        <outlet property="photoView" destination="0y4-FV-SFz" id="paH-aU-I8S"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uN7-tS-oZZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1162" y="368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BTv-ZX-2aJ">
