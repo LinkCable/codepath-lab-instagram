@@ -23,7 +23,8 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
         tableView.dataSource = self
         tableView.delegate = self
         
-        requestData()
+        requestData(nil)
+        let refreshControl = UIRefreshControl()
         
         // Set up Infinite Scroll loading indicator
         let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
@@ -34,6 +35,10 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
         var insets = tableView.contentInset;
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         tableView.contentInset = insets
+        
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+
         
     }
 
@@ -92,7 +97,7 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
         return headerView
     }
     
-    func requestData() {
+    func requestData(refreshControl: UIRefreshControl?) {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
         let request = NSURLRequest(URL: url!)
@@ -107,7 +112,7 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            if(self.pictures != nil) {
+                            if(self.pictures != nil && refreshControl == nil) {
                                 self.pictures! += (responseDictionary["data"] as! [NSDictionary])
                             }
                             else {
@@ -115,6 +120,9 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
                             }
                             self.loadingMoreView!.stopAnimating()
                             self.requestingData = false
+                            if refreshControl != nil {
+                                refreshControl!.endRefreshing()
+                            }
                             self.tableView.reloadData()
                     }
                 }
@@ -135,13 +143,17 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
                 loadingMoreView?.frame = frame
                 loadingMoreView!.startAnimating()
                 
-                requestData()
+                requestData(nil)
             }
         }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+            requestData(refreshControl)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
