@@ -75,9 +75,9 @@ class PhotosViewController: UIViewController,UITableViewDataSource, UITableViewD
         
         let profileView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
         profileView.clipsToBounds = true
-        profileView.layer.cornerRadius = 15;
+        profileView.layer.cornerRadius = 15
         profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).CGColor
-        profileView.layer.borderWidth = 1;
+        profileView.layer.borderWidth = 1
         
         // Use the section number to get the right URL
         let profile = pictures![section]
